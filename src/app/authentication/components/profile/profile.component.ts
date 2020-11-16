@@ -65,27 +65,15 @@ export class ProfileComponent implements IProfileComponent {
 
     //แปลงไฟล์รูปเป็น Base64
     onConverImage(input: HTMLInputElement){
-      const imageType =['image/jpg','image/png'] 
-
-      const imageControls = this.form.controls['image'];
-      imageControls.setValue(null);
-
-      if (input.files.length==0) return;
-
-    //ตรวจสอบชนิดไฟล์ที่เข้ามา
-      if(imageType.indexOf(input.files[0].type)<0)
-      {
-      input.value=null;
-      return this.Alert.notify("กรุณาอัพโหลดไฟล์ รูปภาพเท่านั้น");
-      }
-
-      const reader = new FileReader();
-      reader.readAsDataURL(input.files[0]);
-      reader.addEventListener('load',()=>{
-          imageControls.setValue( reader.result );
-
-
-      });
+    const imageControls = this.form.controls['image'];
+      this.shareds
+        .onConvertImage(input)
+        .then(base64 => imageControls.setValue(base64))
+        .catch(err=> {
+          input.value=null;
+          imageControls.setValue(null);
+          this.Alert.notify(err.Message);
+        });
     }
 
       // โหลดข้อมูลใหม่พร้อมกับ Update form Data

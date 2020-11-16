@@ -9,7 +9,7 @@
           <li class="breadcrumb-item">รายการสมาชิก</li>
           <li class="breadcrumb-item"><a href="#">เพิ่มสมาชิกใหม่</a></li>
         </ul>
-      </div>
+      </div>  
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
@@ -29,10 +29,11 @@
   
                 <div class="col-sm-4">
                   <div class="form-group">
-                  <img  src="assets/images/no-image-profile.png" class="img-fluid img-thumbnail"  >
+                    <img *ngIf="!form.value.image" src="assets/images/no-image-profile.png" class="img-fluid img-thumbnail" >
+                    <img *ngIf="form.value.image" [src]="form.value.image" class="img-fluid img-thumbnail" >
                   </div>
                   <div class="form-group">
-                    <!-- <input type="file" (change)="onConverImage(inputFile)" #inputFile> -->
+                    <input type="file" (change)="onConverImage(inputFile)" #inputFile>
                   </div>
                 </div>
                 <!-- formControlName="image"   -->
@@ -41,12 +42,10 @@
                       <label for="">อีเมล์</label>
                       <input type="text" class="form-control" placeholder="กรุณากรอกข้อมูล" formControlName="email"  >
                     </div>
-          
                     <div class="form-group">
                       <label for="">รหัสผ่าน</label>
                       <input type="text" class="form-control"  placeholder="กรุณากรอกข้อมูล"  formControlName="password">
                     </div>
-                
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
@@ -98,7 +97,7 @@
               <div class="form-group">
                 <!-- button[type=submit].btn.btn-primary{บันทึกข้อมูลโปรไฟล์} -->
                   <button type="submit" class="btn btn-primary">
-                  <div class="fa fa-save"></div>  บันทึกข้อมูลโปรไฟล์
+                  <div class="fa fa-save"></div>  บันทึกข้อมูลสมาชิก
                   </button>                  
               </div>
             </form>     
