@@ -5,6 +5,7 @@ import { IAccount, IRoleAccount } from 'src/app/services/account.service';
 import { AlertService } from 'src/app/shareds/services/alert.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
+
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
@@ -26,6 +27,10 @@ export class MembersComponent implements IMembersComponent {
     //กำหนดค่าเริ่มต้น SeaechType
     this.SeaechType=this.SeaechTypeItems[0]
   }
+  onDeleteMember(item: IAccount) {
+    throw new Error('Method not implemented.');
+  }
+  void: any;
 
   string: any;
   items: IMember;
@@ -77,7 +82,15 @@ export class MembersComponent implements IMembersComponent {
       return IRoleAccount[role];
     }
 
+  //ลบข้อมูลสมาชิก
+  OnDeleteMember(item: IAccount){
+    this.alert.confirm()
+    .then(status=>{
+      if (!status) return;       
+      console.log(item);
+    });
 
+  }
     //โหลดข้อมูลสมาชิก
     private initialLoadMembers(options?: IMemberSearch){
       this.member

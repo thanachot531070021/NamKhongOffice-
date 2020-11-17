@@ -17,6 +17,7 @@ export interface IMembersComponent{
     onpageChanged(page:PageChangedEvent)
 
     getRoleName(role:IRoleAccount); string;
+    onDeleteMember(item: IAccount);void;
 }
 export interface IMember{
     items: IAccount[];
