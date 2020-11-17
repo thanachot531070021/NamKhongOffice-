@@ -1,6 +1,6 @@
 import { AuthURL } from './../../authentication.url';
 import { AppURL } from './../../../app.url';
-import { Routes, Router } from '@angular/router';
+import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { MemberService } from './../../services/members.service';
 import { ValidatorsService } from 'src/app/shareds/services/validators.service';
@@ -26,8 +26,15 @@ export class MemberCreateComponent implements  IMembersCreateComponent{
       private Alert:AlertService,
       private Validators:ValidatorsService,
       private Member:MemberService,
-      private Router:Router
+      private Router:Router,
+      private activatedRouter:ActivatedRoute
   ) {
+    this.activatedRouter.params.forEach(params =>{
+      console.log(params);
+    });
+
+    
+
     this.initialCreateFormData();
     // เพิ่ม position
     this.positionItem=this.shareds.positionItem

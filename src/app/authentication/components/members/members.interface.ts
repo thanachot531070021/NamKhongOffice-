@@ -16,8 +16,9 @@ export interface IMembersComponent{
     limitPage:number;
     onpageChanged(page:PageChangedEvent)
 
-    getRoleName(role:IRoleAccount); string;
-    onDeleteMember(item: IAccount);void;
+    getRoleName(role:IRoleAccount): string;
+    onDeleteMember(item: IAccount):void;
+    onUpdateMember(item: IAccount):void;
 }
 export interface IMember{
     items: IAccount[];

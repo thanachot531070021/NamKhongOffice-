@@ -4,6 +4,10 @@ import { IMember, IMembersComponent, IMemberSearch, IMemberSearchKey } from './m
 import { IAccount, IRoleAccount } from 'src/app/services/account.service';
 import { AlertService } from 'src/app/shareds/services/alert.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
+import { AppURL } from 'src/app/app.url';
+import { AuthURL } from '../../authentication.url';
 
 
 @Component({
@@ -17,8 +21,9 @@ export class MembersComponent implements IMembersComponent {
 
   constructor(
    private  member:MemberService,
-   private  alert:AlertService,
-   private  detect: ChangeDetectorRef
+   private  alert: AlertService,
+   private  detect: ChangeDetectorRef,
+   private  router:Router
   ) { 
     this.initialLoadMembers({
       startPage:this.startPage,
@@ -27,11 +32,13 @@ export class MembersComponent implements IMembersComponent {
     //กำหนดค่าเริ่มต้น SeaechType
     this.SeaechType=this.SeaechTypeItems[0]
   }
+
+
   onDeleteMember(item: IAccount) {
     throw new Error('Method not implemented.');
   }
-  void: any;
 
+  void: any;
   string: any;
   items: IMember;
 
@@ -72,8 +79,8 @@ export class MembersComponent implements IMembersComponent {
         limitPage:this.limitPage
       });
     //กระตู้น  Event
-    this.detect.detectChanges()
 
+    this.detect.detectChanges()
     }
 
 
@@ -82,27 +89,38 @@ export class MembersComponent implements IMembersComponent {
       return IRoleAccount[role];
     }
 
-  //ลบข้อมูลสมาชิก
-  OnDeleteMember(item: IAccount){
-    this.alert.confirm()
-    .then(status=>{
-      if (!status) return;       
-      this.member
-      .deleteMember(item.id)
-      .then(()=>{
-        // โหลดข้อมูล Memberใหม่
-        this.initialLoadMembers({
-          searchText: this.getSearchText,
-          searchType: this.SeaechType.key,
-          startPage:this.startPage,
-          limitPage:this.limitPage
-        });
-        this.alert.notify('ลบข้อมูลสำเร็ว','info')
-      })
-      .catch(err=> this.alert.notify(err.Message));
-    });
+    //ลบข้อมูลสมาชิก
+    OnDeleteMember(item: IAccount){
+      this.alert.confirm()
+      .then(status=>{
+        if (!status) return;       
+        this.member
+        .deleteMember(item.id)
+        .then(()=>{
+          // โหลดข้อมูล Memberใหม่
+          this.initialLoadMembers({
+            searchText: this.getSearchText,
+            searchType: this.SeaechType.key,
+            startPage:this.startPage,
+            limitPage:this.limitPage
+          });
+          this.alert.notify('ลบข้อมูลสำเร็ว','info')
+        })
+        .catch(err=> this.alert.notify(err.Message));
+      });
 
-  }
+    }
+
+    //แก้ไข ข้อมูลสมาชิกโดยส่ง id ไป  url
+    onUpdateMember(item: IAccount){
+      this.alert.notify(item.id)
+      this.router.navigate([''
+      ,AppURL.Authen,
+      AuthURL.Membercreate,
+      item.id
+    ]);
+    }
+
     // ตรวจสอบและ Return ค่า SearchText
     private get getSearchText() {
       return this.SeaechType.key == 'role' ? IRoleAccount[this.SearchText] || '': this.SearchText
@@ -119,4 +137,7 @@ export class MembersComponent implements IMembersComponent {
           .catch(err=>this.alert.notify(err.Message));
 
     }
+
+
+
 }

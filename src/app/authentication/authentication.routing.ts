@@ -18,9 +18,12 @@ const RouteLists: Routes = [
 { path: AuthURL.Cards, component: CardsComponent},
 { path: AuthURL.Widgets, component: WidgetsComponent},
 { path: AuthURL.Members, component: MembersComponent},
-{ path: AuthURL.Membercreate, component: MemberCreateComponent},
-
-
+{ 
+    path: AuthURL.Membercreate, children : [
+        {path:'', component: MemberCreateComponent},
+        {path:':id', component: MemberCreateComponent}
+    ]
+},
 
 
 ];
