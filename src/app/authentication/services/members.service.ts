@@ -56,6 +56,13 @@ export class MemberService {
             });
         }
 
+        deleteMember(id:any){
+            return new Promise((resolve,rejects)=>{
+                const findIndex=this.account.mockUserItem.findIndex(item=>item.id==id);
+                if(findIndex<0) return rejects({Message:'ไม่มีข้อมูลนี้ในระบบ'});
+                resolve(this.account.mockUserItem.splice(findIndex,1));
+            });
+        }
 
         //จำลองข้อมูลสมาชิก เพื่อทำ pagination
         private generateMember() {
