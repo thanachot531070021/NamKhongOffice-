@@ -30,7 +30,7 @@ export class ProfileComponent implements IProfileComponent {
    }
    modalRef: BsModalRef;
    form: FormGroup;
-    positionItem: any[]=[];
+   positionItem: string[];
     //บันทึกข้อมูล
     onSubmit(){
       if(this.form.invalid) return this.Alert.someting_wrong();
@@ -81,11 +81,13 @@ export class ProfileComponent implements IProfileComponent {
       this.Account
       .getUserLogin(this.Authen.getAuthenticated())
       .then(user=>{
+
         this.form.controls['email'].setValue(user.email);
         this.form.controls['firstname'].setValue(user.firstname);
         this.form.controls['lastname'].setValue(user.lastname);
         this.form.controls['position'].setValue(user.position);
         this.form.controls['image'].setValue(user.image);
+
       })
       .catch(err=>this.Alert.notify(err.Message))
     }

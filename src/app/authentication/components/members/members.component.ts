@@ -78,8 +78,8 @@ export class MembersComponent implements IMembersComponent {
         startPage:this.startPage,
         limitPage:this.limitPage
       });
-    //กระตู้น  Event
 
+    //กระตู้น  Event
     this.detect.detectChanges()
     }
 
@@ -93,7 +93,7 @@ export class MembersComponent implements IMembersComponent {
     OnDeleteMember(item: IAccount){
       this.alert.confirm()
       .then(status=>{
-        if (!status) return;       
+        if (!status) return;
         this.member
         .deleteMember(item.id)
         .then(()=>{
@@ -104,7 +104,7 @@ export class MembersComponent implements IMembersComponent {
             startPage:this.startPage,
             limitPage:this.limitPage
           });
-          this.alert.notify('ลบข้อมูลสำเร็ว','info')
+          this.alert.notify('ลบข้อมูลสำแล้ว','info')
         })
         .catch(err=> this.alert.notify(err.Message));
       });

@@ -30,18 +30,18 @@ export class MemberCreateComponent implements  IMembersCreateComponent{
       private activatedRouter:ActivatedRoute
   ) {
     this.activatedRouter.params.forEach(params =>{
-      console.log(params);
+      this.memId=params.id;
     });
 
-    
-
     this.initialCreateFormData();
+    this.initialUpdateFormData();
+
     // เพิ่ม position
     this.positionItem=this.shareds.positionItem
-    
    }
- 
+
       form:FormGroup;
+      memId:any;
       positionItem: string[];
       roleItem: IRoleAccount[]=[
       IRoleAccount.Member,
@@ -51,21 +51,40 @@ export class MemberCreateComponent implements  IMembersCreateComponent{
 
     // บันทึกหรือแก้ไขข้อมูล
 
-  onSubmit(): void {  
+  onSubmit(): void {
     if(this.form.invalid)
     return this.Alert.someting_wrong();
+
+    // หากเป็นการเพิ่มสมาชิกใหม่
+    if(!this.memId){
     this.Member
-    .createMember(this.form.value)
-    .then(res=>{
-      this.Alert.notify('บันทึกข้อมูลสำเร็จ','info');
-      this.Router.navigate(['/',AppURL.Authen,AuthURL.Members]);
-    })
-    .catch(err=> this.Alert.notify(err.Message));
+      .createMember(this.form.value)
+      .then(res=>{
+        this.Alert.notify('บันทึกข้อมูลสำเร็จ','info');
+        this.Router.navigate(['/',AppURL.Authen,AuthURL.Members]);
+      })
+      .catch(err=> this.Alert.notify(err.Message));
+    }
+
+    // หากเป็นการแก้ไขสมาชิก
+    else{
+      this.Member.updateMember(this.memId,this.form.value)
+      .then(res=>{
+        console.log(res);
+        this.Alert.notify('อัพเดตข้อมูลสำเร็จ','info');
+        this.Router.navigate(['',AppURL.Authen,AuthURL.Members]);
+      })
+
+      .catch(({Message}) =>this.Alert.notify(Message));   //ใช้แบบไหนก็ได้ เอาตามที่เข้าใจ .catch(err=> this.Alert.notify(err.Message));
+    }
+
+
+   
 }
 
 
   //แสดงข้อมูลสิทธ์ผุ้ใช้ เป็นชื่อตัวหนังสือ
-  getRoleName(role: IRoleAccount): string {
+    getRoleName(role: IRoleAccount): string {
     return IRoleAccount[role];
     }
 
@@ -97,5 +116,27 @@ export class MemberCreateComponent implements  IMembersCreateComponent{
 
       });
   }
+
+  //แก้ไขฟอร์ม
+  private initialUpdateFormData(){
+    if(!this.memId) return;
+    this.Member
+    .getMemberById(this.memId)
+    .then(Member => {
+        const form= this.form;
+        form.controls['image'].setValue(Member.image);
+        form.controls['email'].setValue(Member.email);
+        form.controls['firstname'].setValue(Member.firstname);
+        form.controls['lastname'].setValue(Member.lastname);
+        form.controls['position'].setValue(Member.position);
+        form.controls['role'].setValue(Member.role);
+        form.controls['password'].setValidators(this.Validators.isPassword);
+
+    })
+    .catch(err=> {
+      this.Alert.notify(err.Message);
+      this.Router.navigate(['',AppURL.Authen, AuthURL.Members]);
+    });
+    }
 
 }

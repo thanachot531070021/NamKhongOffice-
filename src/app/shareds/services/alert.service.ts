@@ -7,14 +7,13 @@ declare const swal:any;
 @Injectable()
 
 
-export class AlertService{    
+export class AlertService{
     //เเจ้งเตือน default funtion
     notify(message:string,type: string="warning"){
         $.notify({
             // options
             title: 'แจ้งเตือน: ',
             message: message,
-           
         },{
             // settings
             element: 'body',
@@ -52,7 +51,7 @@ export class AlertService{
                     '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
                 '</div>' +
                 '<a href="{3}" target="{4}" data-notify="url"></a>' +
-            '</div>' 
+            '</div>'
         });
 
     }
