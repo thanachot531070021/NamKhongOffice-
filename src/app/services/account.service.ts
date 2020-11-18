@@ -1,3 +1,4 @@
+
 import { Injectable } from "@angular/core";
 import { IRegister } from 'src/app/components/register/register.interface';
 import { ILogin } from 'src/app/components/login/login.interface';
@@ -98,7 +99,13 @@ export  class AccountService{
     onRegister(model: IRegister){
     // console.log(model);
          return new Promise((resolve,reject)=>{
-             model['id']=Math.random();
+             const _model: IAccount= model;
+             _model.id=Math.random();
+             _model.image=null;
+             _model.position='';
+             _model.role=IRoleAccount.Member;
+             _model.create= new Date();
+             _model.update= new Date();
              this.mockUserItem.push(model);
             resolve(model);
             // reject({Message: 'ERROE from server! '});

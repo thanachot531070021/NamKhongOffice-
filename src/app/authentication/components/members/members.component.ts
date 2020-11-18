@@ -8,6 +8,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { AppURL } from 'src/app/app.url';
 import { AuthURL } from '../../authentication.url';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 
 @Component({
@@ -23,28 +24,35 @@ export class MembersComponent implements IMembersComponent {
    private  member:MemberService,
    private  alert: AlertService,
    private  detect: ChangeDetectorRef,
-   private  router:Router
+   private  router:Router,
+   private localeService: BsLocaleService
   ) { 
+
+       //เปลี่ยน Datepicker เป็นภาษาไทย
+       this.localeService.use('th');
+
+       //โหลดข้อมูลสมาชิก
     this.initialLoadMembers({
       startPage:this.startPage,
       limitPage:this.limitPage
     });
+ 
     //กำหนดค่าเริ่มต้น SeaechType
     this.SeaechType=this.SeaechTypeItems[0]
   }
 
 
-  onDeleteMember(item: IAccount) {
-    throw new Error('Method not implemented.');
-  }
+    onDeleteMember(item: IAccount) {
+      throw new Error('Method not implemented.');
+    }
 
-  void: any;
-  string: any;
-  items: IMember;
+    void: any;
+    string: any;
+    items: IMember;
 
-  //ตัวแปล Pagination
-  startPage:number=1;
-  limitPage:number=5;
+    //ตัวแปล Pagination
+    startPage:number=1;
+    limitPage:number=5;
 
   //เปลี่ยนหน้า Pagination
   onpageChanged(page:PageChangedEvent){
@@ -72,6 +80,8 @@ export class MembersComponent implements IMembersComponent {
   
     //ค้นหาข้อมูล
     OnSeachItem(){
+
+      //  console.log(this.getSearchText);
       this.startPage=1;
       this.initialLoadMembers({
         searchText: this.getSearchText,
@@ -124,9 +134,31 @@ export class MembersComponent implements IMembersComponent {
 
     // ตรวจสอบและ Return ค่า SearchText
     private get getSearchText() {
-      return this.SeaechType.key == 'role' ? IRoleAccount[this.SearchText] || '': this.SearchText
-    }
+      let responseSearchText = null;
 
+      switch(this.SeaechType.key){
+        case 'role' :
+          responseSearchText= IRoleAccount[this.SearchText] || '';
+            break;
+        case 'update' :
+          const serchDate:{from:Date,to:Date}={from:this.SearchText[0], to:this.SearchText[1]} as any;
+                serchDate.from.setHours(0);
+                serchDate.from.setMinutes(0);
+                serchDate.from.setSeconds(0);
+                serchDate.to.setHours(23);
+                serchDate.to.setMinutes(59);
+                serchDate.to.setSeconds(59);
+                responseSearchText=serchDate;
+            break;
+        default:
+          responseSearchText=this.SearchText;
+          break;
+
+      }
+      // return this.SeaechType.key == 'role' ? IRoleAccount[this.SearchText] || '': this.SearchText
+
+      return responseSearchText;
+    }
     //โหลดข้อมูลสมาชิก
     private initialLoadMembers(options?: IMemberSearch){
       this.member

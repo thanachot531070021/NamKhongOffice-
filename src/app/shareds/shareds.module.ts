@@ -16,7 +16,10 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ValidatorsService } from './services/validators.service';
 
- 
+//เพิ่มภาษาไทยให้ Datepicker
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { thLocale } from 'ngx-bootstrap/locale';
+defineLocale('th', thLocale);
 
 @NgModule({
   imports: [

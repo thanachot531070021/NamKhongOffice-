@@ -1,3 +1,4 @@
+import { Route } from '@angular/compiler/src/core';
 import { invalid } from '@angular/compiler/src/render3/view/util';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { promise } from 'protractor';
@@ -33,10 +34,17 @@ export class MemberService {
                         //ค้นหาข้อมูลมาเก็บไว้ในตัวแปร items
                         items=this.account
                         .mockUserItem
-                        .filter(items=>
-                            items[options.searchType].toString().toLowerCase()
-                        .indexOf(options.searchText.toString().toLowerCase()) >= 0
-                        );
+                        .filter(items=>{
+                            switch(options.searchType){
+                                case 'update':
+                                    return items.update>=options.searchText['from'] && items.update<=options.searchText['to']
+                                    break;
+                                default:
+                                   return items[options.searchType].toString().toLowerCase()
+                                    .indexOf(options.searchText.toString().toLowerCase()) >= 0
+                                    break;
+                            }
+                        });
                     }
                         resolve({ items:items.slice(startItem,endItem),totalItems:items.length});
                     });
@@ -113,7 +121,7 @@ export class MemberService {
                                     position: positions[Math.round(Math.random() *1)],
                                     role:roles[Math.round(Math.random() *2)],
                                     create: new Date(),
-                                    update:new Date()
+                                    update:new Date(2020,10,Math.round(Math.random()*18+1))
                                 });
                                 
                             }

@@ -32,11 +32,10 @@
                     {{item.value}}
                   </a>
                   </li>
-                
                 </ul>
               </div>
 
-              <div  [ngSwitch]="SeaechType.key">              
+              <div  [ngSwitch]="SeaechType.key">
                 <input  *ngSwitchCase="'update'" bsDaterangepicker placement="left" type="text" [(ngModel)]="SearchText" class="form-control" placeholder="ค้นหาข้อมูล">
                 <input *ngSwitchDefault type="text" [(ngModel)]="SearchText" class="form-control" placeholder="ค้นหาข้อมูล">
               </div>
