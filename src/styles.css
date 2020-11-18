@@ -1,6 +1,44 @@
+/* <!-- datepicker css--> */
+/* @import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker.css'; */
+
 .ng-invalid.ng-touched{
     border-color: orangered;
 }
 [data-notify="container"]{
 z-index: 1060 !important;
+}
+
+.theme-green .bs-datepicker-head {
+    background-color: #009688;
+}
+
+.theme-green .bs-datepicker-body table td.week span {
+    color: orangered;
+}
+
+.theme-green .bs-datepicker-body table td span.selected{
+   background-color: #009688;
+}
+
+.btn-primary {
+    background-color: #009688;
+    border-color: #009688;
+}
+.btn-primary:hover{
+    background-color: #009688;
+    border-color: #009688;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #009688;
+    border-color: #009688;
+}
+
+.page-item.active .page-link {
+    background-color: #009688;
+    border-color: #009688;
+}
+
+.page-link {
+    color: #009688;
 }

@@ -9,7 +9,7 @@ import { AlertService } from './services/alert.service';
 import { AccountService } from '../services/account.service';
 import {ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // V importเพื่อ ให้ใช้ routerLink ได้เพราะหน้า  AuthNavbarComponent ใช้งานจาก shareds.module ใช้ที่ไหนให้ไป  import ไปว่างใส่ที่นั้น
 import { RouterModule } from '@angular/router';  
@@ -26,7 +26,8 @@ import { ValidatorsService } from './services/validators.service';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     
   ],
   declarations: [
@@ -43,7 +44,8 @@ import { ValidatorsService } from './services/validators.service';
         ReactiveFormsModule,
         FormsModule,
         ModalModule,
-        PaginationModule
+        PaginationModule,
+        BsDatepickerModule
     ],
     providers:[
       AlertService,
