@@ -2,10 +2,9 @@ import { FormGroup } from '@angular/forms';
 
 export interface ILoginComponent{
     Url:any;
+    retuenURL: string;
     form: FormGroup;
-    
     onSubmit(): void;
-
 }
 
 export interface ILogin{

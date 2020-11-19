@@ -8,6 +8,7 @@ import { CardsComponent } from './components/cards/cards.component';
 import { WidgetsComponent } from './components/widgets/widgets.component';
 import { MembersComponent } from './components/members/members.component';
 import { MemberCreateComponent } from './components/member-create/member-create.component';
+import { UserRoleGuard } from '../guards/user-role.guard';
 
 const RouteLists: Routes = [
 {path: '', redirectTo: AuthURL.Dashboard, pathMatch: 'full'},
@@ -17,9 +18,12 @@ const RouteLists: Routes = [
 { path: AuthURL.Elements, component: BootstrapElementsComponent},
 { path: AuthURL.Cards, component: CardsComponent},
 { path: AuthURL.Widgets, component: WidgetsComponent},
-{ path: AuthURL.Members, component: MembersComponent},
+
+{ path: AuthURL.Members, component: MembersComponent,
+    canActivate:[UserRoleGuard]
+},
 { 
-    path: AuthURL.Membercreate, children : [
+    path: AuthURL.Membercreate,canActivate:[UserRoleGuard], children : [
         {path:'', component: MemberCreateComponent},
         {path:':id', component: MemberCreateComponent}
     ]
