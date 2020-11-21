@@ -1,7 +1,9 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { AuthenService } from './../../../services/authen.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MemberService } from '../../services/members.service';
 import { IMember, IMembersComponent, IMemberSearch, IMemberSearchKey } from './members.interface';
-import { IAccount, IRoleAccount } from 'src/app/services/account.service';
+import { IAccount, IRoleAccount, AccountService } from 'src/app/services/account.service';
 import { AlertService } from 'src/app/shareds/services/alert.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Route } from '@angular/compiler/src/core';
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 import { AppURL } from 'src/app/app.url';
 import { AuthURL } from '../../authentication.url';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-
+declare const App;
 
 @Component({
   selector: 'app-members',
@@ -25,7 +27,9 @@ export class MembersComponent implements IMembersComponent {
    private  alert: AlertService,
    private  detect: ChangeDetectorRef,
    private  router:Router,
-   private localeService: BsLocaleService
+   private localeService: BsLocaleService,
+   private authen:AuthenService,
+   private account:AccountService
   ) { 
 
        //เปลี่ยน Datepicker เป็นภาษาไทย
@@ -39,12 +43,11 @@ export class MembersComponent implements IMembersComponent {
  
     //กำหนดค่าเริ่มต้น SeaechType
     this.SeaechType=this.SeaechTypeItems[0]
+
+     // User login
+     this.initialLoadUserLogin();
+
   }
-
-
-    onDeleteMember(item: IAccount) {
-      throw new Error('Method not implemented.');
-    }
 
     void: any;
     string: any;
@@ -53,6 +56,10 @@ export class MembersComponent implements IMembersComponent {
     //ตัวแปล Pagination
     startPage:number=1;
     limitPage:number=5;
+
+    //ตรวจสอบ สิทธิ์ผู้ใช้งาน
+    UserLogin:IAccount;
+    Role = IRoleAccount;
 
   //เปลี่ยนหน้า Pagination
   onpageChanged(page:PageChangedEvent){
@@ -166,9 +173,23 @@ export class MembersComponent implements IMembersComponent {
           .then(items=>{
             // console.log(item);
             this.items=items;
+
           })
           .catch(err=>this.alert.notify(err.Message));
 
+    }
+
+    onDeleteMember(item: IAccount) {
+      throw new Error('Method not implemented.');
+    }
+
+    //โหลดข้อมูลผู้ใช้ไปยัง login
+    private initialLoadUserLogin(){
+      this.account
+      .getUserLogin(this.authen.getAuthenticated())
+      .then(userLogin=>
+        this.UserLogin=userLogin)
+      .catch(err=>this.alert.notify(err.Message));
     }
 
 

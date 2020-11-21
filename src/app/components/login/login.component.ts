@@ -28,7 +28,7 @@ export class LoginComponent implements ILoginComponent {
   ) {
     //เก็บค่า returnURL เพื่อ redirect หลังจาก login
     this.activatedRoute.params.forEach(params=>{
-      this.retuenURL=params.returnURL || `/${AppURL.Authen}/${AuthURL.Dashboard}`;
+      this.retuenURL=params.returnURL || `/${AppURL.Authen}`;
       // console.log(this.retuenURL);
     })
     this.initialCreateFormData();    

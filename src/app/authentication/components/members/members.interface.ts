@@ -19,6 +19,9 @@ export interface IMembersComponent{
     getRoleName(role:IRoleAccount): string;
     onDeleteMember(item: IAccount):void;
     onUpdateMember(item: IAccount):void;
+
+    UserLogin:IAccount;
+    Role: typeof IRoleAccount;
 }
 export interface IMember{
     items: IAccount[];

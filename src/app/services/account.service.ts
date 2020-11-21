@@ -25,7 +25,7 @@ export  class AccountService{
             password:'111111',
             position:'front end developer',
             role:IRoleAccount.Admin,
-            image:'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg',
+            image:'',
             create:new Date,
             update:new Date
 
@@ -38,6 +38,7 @@ export  class AccountService{
             password:'111111',
             position:'Back end developer',
             role:IRoleAccount.Employee,
+            image:'',
             create:new Date,
             update:new Date
 
@@ -50,6 +51,7 @@ export  class AccountService{
             password:'111111',
             position:'Back end developer',
             role:IRoleAccount.Member,
+            image:'',
             create:new Date,
             update:new Date
 

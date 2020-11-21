@@ -80,11 +80,13 @@
                 <td>{{item.position}}</td>
                 <td>{{getRoleName(item.role)}}</td>
                 <td>{{item.update | date :'dd-MM-yyyy'}}</td>
-                <td class="text-right">
-					<i  (click)='onUpdateMember(item)' class="fa fa-edit cur"></i>
-					<span> | </span>
-					<i  (click)='OnDeleteMember(item)' class="fa fa-trash cur"></i>
-				</td>
+                <td   class="text-right">
+                <ng-template [ngIf]="UserLogin.role == Role.Admin">
+                    <i  (click)='onUpdateMember(item)' class="fa fa-edit cur"></i>
+                    <span> | </span>
+                    <i  (click)='OnDeleteMember(item)' class="fa fa-trash cur"></i>
+                </ng-template>
+				        </td>
 
               </tr>
 			</tbody>
