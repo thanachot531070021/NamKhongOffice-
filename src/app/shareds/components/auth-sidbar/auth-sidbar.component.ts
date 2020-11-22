@@ -27,8 +27,7 @@ export class AuthSidbarComponent implements OnInit,IAuthSidbarComponent {
   }
 
   ngOnInit(): void {
-    
-    
+  
   }
 
   AppURL=AppURL;
@@ -38,6 +37,9 @@ export class AuthSidbarComponent implements OnInit,IAuthSidbarComponent {
 
   //โหลดข้อมูล User ที่เข้าสู่ระบบ จาก Token
   private initialLoadUserLogin(){
+    this.UserLogin  = this.account.UserLogin;
+    if(this.UserLogin.id) return   setTimeout(() => { App.initalLoadPage()}, 100);
+    
     this.account
     .getUserLogin(this.authen.getAuthenticated())
     .then(userlogin=>{

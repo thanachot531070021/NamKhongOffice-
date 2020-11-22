@@ -53,7 +53,7 @@ export class LoginComponent implements ILoginComponent {
           this.alert.notify('เข้าสู่ระบบสำเร็จ','info')
          this.router.navigateByUrl(this.retuenURL);
         })
-        .catch(err=>this.alert.notify(err.Message));
+        .catch(err => this.alert.notify(err.Message));
         
 
     // console.log(this.form.value);
