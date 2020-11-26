@@ -53,7 +53,7 @@
 
         <!-- ส่วนตาราง -->
       
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="items">
           <table class="table">
 			 <!-- -------Head----- -->
             <thead>
@@ -79,9 +79,9 @@
                 <td>{{item.lastname}}</td>
                 <td>{{item.position}}</td>
                 <td>{{getRoleName(item.role)}}</td>
-                <td>{{item.update | date :'dd-MM-yyyy'}}</td>
+                <td>{{item.updated | date :'dd-MM-yyyy'}}</td>
                 <td   class="text-right">
-                <ng-template [ngIf]="UserLogin.role == Role.Admin">
+                <ng-template [ngIf]="UserLogin.role != Role.Member">
                     <i  (click)='onUpdateMember(item)' class="fa fa-edit cur"></i>
                     <span> | </span>
                     <i  (click)='OnDeleteMember(item)' class="fa fa-trash cur"></i>

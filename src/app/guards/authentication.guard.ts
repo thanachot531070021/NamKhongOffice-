@@ -1,3 +1,4 @@
+import { HttpService } from './../services/http.service';
 import { AppURL } from '../app.url';
 import { AuthenService } from '../services/authen.service';
 import { Injectable } from '@angular/core';

@@ -31,9 +31,8 @@ export  class AccountService{
             position:'front end developer',
             role:IRoleAccount.Admin,
             image:'',
-            create:new Date,
-            update:new Date
-
+            created:new Date,
+            updated:new Date
         },
         {
             id:2,
@@ -44,8 +43,8 @@ export  class AccountService{
             position:'Back end developer',
             role:IRoleAccount.Employee,
             image:'',
-            create:new Date,
-            update:new Date
+            created:new Date,
+            updated:new Date
 
         },
         {
@@ -57,8 +56,8 @@ export  class AccountService{
             position:'Back end developer',
             role:IRoleAccount.Member,
             image:'',
-            create:new Date,
-            update:new Date
+            created:new Date,
+            updated:new Date
 
         }
     ];
@@ -74,9 +73,9 @@ export  class AccountService{
         this.UserLogin.position=UserLogin.position;
         this.UserLogin.role=UserLogin.role;
         this.UserLogin.image=UserLogin.image;
-        this.UserLogin.create=UserLogin.create;
-        this.UserLogin.update=UserLogin.update;
-
+        this.UserLogin.created=UserLogin.created;
+        this.UserLogin.updated=UserLogin.updated;
+        
         return this.UserLogin;
     }
 
@@ -88,7 +87,7 @@ export  class AccountService{
         //     if(!userProfile) return rejects({Message:'ไม่มีข้อมูลผู้ใช้งาน'});
         //     if(userProfile.password !== model.old_pass) return rejects({Message:'รหัสผ่านเดิมไม่ถูกต้อง'});
         //     userProfile.password=model.new_pass;
-        //     userProfile.update= new Date();
+        //     userProfile.updated= new Date();
         //     resolve(userProfile);
         // });
 
@@ -98,8 +97,8 @@ export  class AccountService{
             .then(user=> this.SetUserLogin(user));
     }
     
-    // แก้ไขข้อมูลส่วนตัว Update Profile
-    onUpdateProfile(accessToken:string, model:IProfile){
+    // แก้ไขข้อมูลส่วนตัว updated Profile
+    onupdateProfile(accessToken:string, model:IProfile){
     // return new Promise((resolve, reject )=>{
     //     const userProfile =this.mockUserItem.find(user => user.id==accessToken);
     //     if(!userProfile) return reject({Message:'ไม่มีผูเใช้งานนี้ ในระบบ'});
@@ -107,7 +106,7 @@ export  class AccountService{
     //     userProfile.lastname=model.lastname;
     //     userProfile.position=model.position;
     //     userProfile.image=model.image;
-    //     userProfile.update= new Date();
+    //     userProfile.updated= new Date();
     //     resolve(userProfile);
     // });
      return (this.http
@@ -156,8 +155,8 @@ export  class AccountService{
     //          _model.image=null;
     //          _model.position='';
     //          _model.role=IRoleAccount.Member;
-    //          _model.create= new Date();
-    //          _model.update= new Date();
+    //          _model.created= new Date();
+    //          _model.updated= new Date();
     //          this.mockUserItem.push(model);
     //         resolve(model);
     // });
@@ -180,8 +179,8 @@ export interface IAccount{
     position?:string;
     image?:string;
     role?:IRoleAccount;
-    create?:Date;
-    update?:Date;
+    created?:Date;
+    updated?:Date;
 }   
 
 export enum IRoleAccount{

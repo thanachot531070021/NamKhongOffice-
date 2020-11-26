@@ -10,7 +10,6 @@ import { IAccount } from './account.service';
 }
 )
 export class HttpService{
-
     constructor(private http: HttpClient)
     {
     
@@ -20,14 +19,23 @@ export class HttpService{
 
 
 
-  //ส่งข้อมูลแบบ get  method
-  requestGet(url: string,accessToken?:string){
-    return this.http
-    .get(`${this.address}${url}`,{
-        headers:this.appenHeaders(accessToken)
-    })
-    .pipe(catchError(err=>this.handelError(err)));
-}
+    //ส่งข้อมูลแบบ get  method
+    requestGet(url: string,accessToken?:string){
+        return this.http
+        .get(`${this.address}${url}`,{
+            headers:this.appenHeaders(accessToken)
+        })
+        .pipe(catchError(err=>this.handelError(err)));
+    }
+
+    //ส่งข้อมูลแบบ get  delete
+    requestDelete(url: string,accessToken?:string){
+        return this.http
+        .delete(`${this.address}${url}`,{
+            headers:this.appenHeaders(accessToken)
+        })
+        .pipe(catchError(err=>this.handelError(err)));
+    }
     
     //ส่งข้อมูลแบบ post  method
     requestPost(url: string,body:any,accessToken?:string){
@@ -37,6 +45,8 @@ export class HttpService{
         })
         .pipe(catchError(err=>this.handelError(err)));
     }
+
+    
 
     //ปรับแต่งerror ใหม่
     private handelError(errResponse:HttpErrorResponse): Observable<any>{
@@ -52,4 +62,7 @@ export class HttpService{
         if(accessToken) headers['Authorization']=`Bearer ${accessToken}`;
         return new HttpHeaders(headers);
     }
+
+
+
 }

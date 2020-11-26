@@ -1,3 +1,4 @@
+import { HttpService } from './../services/http.service';
 import { AuthURL } from '../authentication/authentication.url';
 import { AppURL } from '../app.url';
 import { AuthenService } from '../services/authen.service';
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class UnAuthenticationGuard implements CanActivate {
   constructor(
-    private aunth:AuthenService,
+    private authen:AuthenService,
     private router: Router
 
 
@@ -21,7 +22,7 @@ export class UnAuthenticationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.aunth.getAuthenticated()){
+      if(this.authen.getAuthenticated()){
         this.router.navigate(['/',AppURL.Authen,AuthURL.Dashboard]);
         return false;
       }

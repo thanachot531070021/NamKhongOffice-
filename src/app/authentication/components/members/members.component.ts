@@ -185,6 +185,7 @@ export class MembersComponent implements IMembersComponent {
 
     //โหลดข้อมูลผู้ใช้ไปยัง login
     private initialLoadUserLogin(){
+      this.UserLogin  = this.account.UserLogin;
       this.account
       .getUserLogin(this.authen.getAuthenticated())
       .then(userLogin=>

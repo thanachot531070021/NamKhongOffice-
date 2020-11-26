@@ -35,7 +35,7 @@ export class ProfileComponent implements IProfileComponent {
     onSubmit(){
       if(this.form.invalid) return this.Alert.someting_wrong();
       this.Account
-      .onUpdateProfile(this.Authen.getAuthenticated(),this.form.value)
+      .onupdateProfile(this.Authen.getAuthenticated(),this.form.value)
       .then(()=> this.Alert.notify('แก้ไขข้อมูลสำเร็จ','info'))
       .catch(err=>this.Alert.notify(err.Message));
 
