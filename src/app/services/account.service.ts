@@ -18,50 +18,8 @@ providedIn: 'root'
 
 export  class AccountService{
     constructor(private http:HttpService
-    ){
-
-    }
-   public mockUserItem:IAccount[]=[
-        {
-            id:1,
-            firstname:'Admin',
-            lastname: 'Test',
-            email:'Jame1@gmail.com',
-            password:'111111',
-            position:'front end developer',
-            role:IRoleAccount.Admin,
-            image:'',
-            created:new Date,
-            updated:new Date
-        },
-        {
-            id:2,
-            firstname:'Employee',
-            lastname: 'Test',
-            email:'Jame2@gmail.com',
-            password:'111111',
-            position:'Back end developer',
-            role:IRoleAccount.Employee,
-            image:'',
-            created:new Date,
-            updated:new Date
-
-        },
-        {
-            id:3,
-            firstname:'Member',
-            lastname: 'Tests',
-            email:'Jame3@gmail.com',
-            password:'111111',
-            position:'Back end developer',
-            role:IRoleAccount.Member,
-            image:'',
-            created:new Date,
-            updated:new Date
-
-        }
-    ];
-
+    ){}
+   
     // store user login ไว้
     public UserLogin : IAccount= {} as any;
     public SetUserLogin(UserLogin:IAccount){
@@ -145,7 +103,6 @@ export  class AccountService{
         .requestPost('api/account/login',model)
         .toPromise() as Promise<{accessToken :string}>;
     }
-
 
     //ลงทะเบียน
     onRegister(model: IRegister){

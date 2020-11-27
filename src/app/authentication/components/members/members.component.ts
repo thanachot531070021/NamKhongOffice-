@@ -81,7 +81,7 @@ export class MembersComponent implements IMembersComponent {
     { key:'lastname',value:"ค้นหาจากนามสกุล" },
     { key:'position',value:"ค้นหาจากตำแหน่ง" },
     { key:'role',value:"ค้นหาจากสิทธ์ผู้ใช้" },
-    { key:'update',value:"ค้นหาจากวันที่" },
+    { key:'updated',value:"ค้นหาจากวันที่" },
   ];
 
   
@@ -122,7 +122,7 @@ export class MembersComponent implements IMembersComponent {
             startPage:this.startPage,
             limitPage:this.limitPage
           });
-          this.alert.notify('ลบข้อมูลสำแล้ว','info')
+          this.alert.notify('ลบข้อมูลสำแล้ว','info');
         })
         .catch(err=> this.alert.notify(err.Message));
       });
@@ -147,15 +147,24 @@ export class MembersComponent implements IMembersComponent {
         case 'role' :
           responseSearchText= IRoleAccount[this.SearchText] || '';
             break;
-        case 'update' :
-          const serchDate:{from:Date,to:Date}={from:this.SearchText[0], to:this.SearchText[1]} as any;
-                serchDate.from.setHours(0);
-                serchDate.from.setMinutes(0);
-                serchDate.from.setSeconds(0);
-                serchDate.to.setHours(23);
-                serchDate.to.setMinutes(59);
-                serchDate.to.setSeconds(59);
-                responseSearchText=serchDate;
+        case 'updated' :
+              try{
+                const serchDate:{from:Date,to:Date}={from:this.SearchText[0], to:this.SearchText[1]} as any;
+                if(serchDate.from== undefined || serchDate.to==undefined)
+                return this.alert.notify('กรุณากรอกวันที่','warning');
+
+               serchDate.from.setHours(0);
+               serchDate.from.setMinutes(0);
+               serchDate.from.setSeconds(0);
+               serchDate.to.setHours(23);
+               serchDate.to.setMinutes(59);
+               serchDate.to.setSeconds(59);
+               responseSearchText=serchDate;
+              }
+              catch(ex){
+                 this.alert.notify(`เกิดข้อผิดพลาด:${ex.message}`,'warning');
+              }
+          
             break;
         default:
           responseSearchText=this.SearchText;

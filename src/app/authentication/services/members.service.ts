@@ -60,25 +60,31 @@ export class MemberService {
 
                 //ดึงข้อมูลสมาชิกเเค่คนเดียว
                 getMemberById(id){
-                    return new Promise<IAccount>((resolve,rejects) => {
-                        const member =this.account.mockUserItem.find(item=> item.id== id);
-                        if(!member) return rejects({Message:'ไม่มีข้อมูลสมาชิกในระบบ'});
-                        resolve(member);
-                    });
+                    return this.http
+                    .requestGet(`api/member/${id}`,this.authen.getAuthenticated())
+                    .toPromise() as Promise<IAccount>;
+                    // return new Promise<IAccount>((resolve,rejects) => {
+                    //     const member =this.account.mockUserItem.find(item=> item.id== id);
+                    //     if(!member) return rejects({Message:'ไม่มีข้อมูลสมาชิกในระบบ'});
+                    //     resolve(member);
+                    // });
                 }
 
                 // เพิ่มข้อมูลสมาชิก
                 createMember(model:IAccount){
-                    return new Promise((resolve,rejects)=>{
-                        if (this.account.mockUserItem.find(item=> item.email==model.email))
-                        return rejects ({Message:'อีเมล์นี้มีในระบบแล้ว'});
-                        model.id = Math.random();
-                        model.created= new Date();
-                        model.updated=new Date();
+                    return this.http
+                    .requestPost('api/member',model,this.authen.getAuthenticated())
+                    .toPromise() as Promise <IAccount>
+                    // return new Promise((resolve,rejects)=>{
+                    //     if (this.account.mockUserItem.find(item=> item.email==model.email))
+                    //     return rejects ({Message:'อีเมล์นี้มีในระบบแล้ว'});
+                    //     model.id = Math.random();
+                    //     model.created= new Date();
+                    //     model.updated=new Date();
 
-                        this.account.mockUserItem.push(model);
-                        resolve(model);
-                    });
+                    //     this.account.mockUserItem.push(model);
+                    //     resolve(model);
+                    // });
                 }
 
                 // ลบข้อมูลสมาชิก
@@ -94,26 +100,29 @@ export class MemberService {
                 }
                 // แก้ไขข้อมูลสมาชิก
                 updateMember(id:any,model:IAccount){
-                    return new Promise<IAccount>((resolve,rejects)=>{
-                        const member=this.account.mockUserItem.find(item=>item.id==id);
-                        if(!member) return rejects({Message:'ไม่มีข้อมูลสมาชิกในระบบ'});
+                    return this.http
+                    .requestPut(`api/member/${id}`,model,this.authen.getAuthenticated())
+                    .toPromise() as Promise<IAccount>
+                    // return new Promise<IAccount>((resolve,rejects)=>{
+                    //     const member=this.account.mockUserItem.find(item=>item.id==id);
+                    //     if(!member) return rejects({Message:'ไม่มีข้อมูลสมาชิกในระบบ'});
 
-                        // ตรวจว่ามีอีเมล์นี้หรือยัง
-                        if(this.account.mockUserItem.find(item=>{
-                            item.email==member.email && item.id != member.id
-                        }))return rejects({Message:'มีอีเมล์นี้อยู่ในระบบแล้ว'});
+                    //     // ตรวจว่ามีอีเมล์นี้หรือยัง
+                    //     if(this.account.mockUserItem.find(item=>{
+                    //         item.email==member.email && item.id != member.id
+                    //     }))return rejects({Message:'มีอีเมล์นี้อยู่ในระบบแล้ว'});
 
 
-                        member.email=model.email;
-                        member.password=model.password || member.password; //หากไม่กรอก password ใช้ตัวเดิม
-                        member.firstname=model.firstname;
-                        member.lastname=model.lastname;
-                        member.position=model.position;
-                        member.role=model.role;
-                        member.image=model.image;
-                        member.updated= new Date();
-                        resolve(member);
-                    });
+                    //     member.email=model.email;
+                    //     member.password=model.password || member.password; //หากไม่กรอก password ใช้ตัวเดิม
+                    //     member.firstname=model.firstname;
+                    //     member.lastname=model.lastname;
+                    //     member.position=model.position;
+                    //     member.role=model.role;
+                    //     member.image=model.image;
+                    //     member.updated= new Date();
+                    //     resolve(member);
+                    // });
                 }
 
 

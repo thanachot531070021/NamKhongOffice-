@@ -36,7 +36,7 @@
               </div>
 
               <div  [ngSwitch]="SeaechType.key">
-                <input  *ngSwitchCase="'update'" bsDaterangepicker placement="left" type="text" [(ngModel)]="SearchText" class="form-control" placeholder="ค้นหาข้อมูล">
+                <input  *ngSwitchCase="'updated'" bsDaterangepicker placement="left" type="text" [(ngModel)]="SearchText" class="form-control" placeholder="ค้นหาข้อมูล">
                 <input *ngSwitchDefault type="text" [(ngModel)]="SearchText" class="form-control" placeholder="ค้นหาข้อมูล">
               </div>
 

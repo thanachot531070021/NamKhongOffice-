@@ -46,6 +46,15 @@ export class HttpService{
         .pipe(catchError(err=>this.handelError(err)));
     }
 
+    //ส่งข้อมูลแบบ put  method
+    requestPut(url: string,body:any,accessToken?:string){
+        return this.http
+        .put(`${this.address}${url}`,body,{
+            headers:this.appenHeaders(accessToken)
+        })
+        .pipe(catchError(err=>this.handelError(err)));
+    }
+
     
 
     //ปรับแต่งerror ใหม่
