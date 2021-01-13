@@ -66,7 +66,11 @@ export class ProfileComponent implements IProfileComponent {
     //แปลงไฟล์รูปเป็น Base64
     onConverImage(input: HTMLInputElement){
     const imageControls = this.form.controls['image'];
-      this.shareds
+      if(input.files.length==0){
+        input.value=null;
+        imageControls.setValue(null);
+      }else{
+        this.shareds
         .onConvertImage(input)
         .then(base64 => imageControls.setValue(base64))
         .catch(err=> {
@@ -74,6 +78,7 @@ export class ProfileComponent implements IProfileComponent {
           imageControls.setValue(null);
           this.Alert.notify(err.Message);
         });
+      }
     }
 
       // โหลดข้อมูลใหม่พร้อมกับ Update form Data
