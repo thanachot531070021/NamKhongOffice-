@@ -94,7 +94,7 @@
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/jquery-3.2.1.min.js"]
           }
         },
         "lint": {

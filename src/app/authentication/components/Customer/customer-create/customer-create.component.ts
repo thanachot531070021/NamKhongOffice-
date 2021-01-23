@@ -8,7 +8,7 @@ import { SharedsService } from 'src/app/shareds/services/shareds.service';
 import { AlertService } from 'src/app/shareds/services/alert.service';
 import { ValidatorsService } from 'src/app/shareds/services/validators.service';
 import { ActivatedRoute } from '@angular/router';
-
+import * as $ from 'src/assets/js/jquery-3.2.1.min.js';
 @Component({
   selector: 'app-customer-create',
   templateUrl: './customer-create.component.html',
@@ -26,7 +26,9 @@ export class CustomerCreateComponent implements ICustomerCreateComponent {
   });
 
   this.initialCreateFormData();
-
+  this.GetProvinces();
+  this.GetAmphures();
+  this.GetDistricts();
 
  }
 
@@ -46,4 +48,52 @@ export class CustomerCreateComponent implements ICustomerCreateComponent {
 
       });
   }
+  
+
+
+  private GetProvinces(){
+    $.ajax({
+      type: 'get', url: "https://localhost:44320/api/Address/GetProvinces?searchText=",
+      data: {Searchtext : ''},
+      success: function (resault){
+        console.log(resault);
+
+        $("#input_province").empty();
+        $("#input_province").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+        for(var i = 0 ;i <resault.items.length ;i++ ){
+          $("#input_province").append('<option value="'+resault.items[i].PROVINCE_CODE+'">'+ resault.items[i].PROVINCE_NAME+'</option>');
+        }
+      }
+    })}
+
+    private GetAmphures(){
+      $.ajax({
+        type: 'get', url: "https://localhost:44320/api/Address/GetAmphures?searchID=38",
+        data: {Searchtext : ''}, 
+        success: function (resault){
+          // console.log(resault);
+          $("#input_amphures").empty(); 
+          $("#input_amphures").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+          for(var i = 0 ;i <resault.items.length  ;i++ ){
+            $("#input_amphures").append('  <option value="'+resault.items[i].AMPHUR_CODE+'">'+ resault.items[i].AMPHUR_NAME+'</option>'); 
+          }
+        }
+      })}
+  
+      private GetDistricts(){
+        $.ajax({
+          type: 'get', url: "https://localhost:44320/api/Address/GetDistricts?searchID=591",
+          data: {Searchtext : ''}, 
+          success: function (resault){
+            // console.log(resault);
+            $("#input_districts").empty(); 
+            $("#input_districts").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+            for(var i = 0 ;i <resault.items.length  ;i++ ){
+              $("#input_districts").append('  <option value="'+resault.items[i].DISTRICT_CODE+'">'+ resault.items[i].DISTRICT_NAME+'</option>'); 
+            }
+          }
+        })}
+
+
+
 }
