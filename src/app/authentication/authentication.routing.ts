@@ -1,3 +1,6 @@
+import { AppURL } from './../app.url';
+import { CustomerCreateComponent } from "./components/Customer/customer-create/customer-create.component";
+import { CustomerComponent } from './components/Customer/customer/customer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthURL } from './authentication.url';
 import {Routes, RouterModule} from '@angular/router';
@@ -26,13 +29,26 @@ const RouteLists: Routes = [
     canActivate:[UserRoleGuard],
     data:{ roles: [IRoleAccount.Admin,IRoleAccount.Employee] }
 },
-{ 
+{
     path: AuthURL.Membercreate,
     canActivate:[UserRoleGuard],
     data:{ roles: [IRoleAccount.Admin] },
      children : [
         {path:'', component: MemberCreateComponent},
         {path:':id', component: MemberCreateComponent}
+    ]
+},
+{ path: AuthURL.Customer, component: CustomerComponent,
+    canActivate:[UserRoleGuard],
+    data:{ roles: [IRoleAccount.Admin,IRoleAccount.Employee] }
+},
+{
+    path: AuthURL.Customercreate,
+    canActivate:[UserRoleGuard],
+    data:{ roles: [IRoleAccount.Admin] },
+     children : [
+        {path:'', component: CustomerCreateComponent},
+        {path:':id', component: CustomerCreateComponent}
     ]
 },
 

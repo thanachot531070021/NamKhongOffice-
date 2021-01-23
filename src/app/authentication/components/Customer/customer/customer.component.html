@@ -1,0 +1,119 @@
+<app-auth-content>
+    <div class="app-title">
+      <div>
+        <h1><i class="fa fa-users"></i> รายการลูกค้า</h1>
+        <p>หน้าแสดงรายการลูกค้า ค้นหา และแก้ไข</p>
+      </div>
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">รายการลูกค้า</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+  
+          <!-- ส่วนค้นหา -->
+          <div class="tile-title-w-btn">
+            <h3 class="title">
+              <i class="fa fa-list"> รายการข้อมูลลูกค้า</i>
+            </h3>
+            <div class="form-group">
+              <div class="input-group mb-3">
+  
+                <div class="input-group-prepend" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{SeaechType.value}} <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li *ngFor="let item of SeaechTypeItems" role="menuitem">
+                      <a class="dropdown-item" (click)="SeaechType = item">
+                      {{item.value}}
+                    </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div >
+                  <input  type="text" [(ngModel)]="SearchText"  class="form-control" placeholder="ค้นหาข้อมูล">
+                </div>
+
+                <div class="input-group-append">
+                  <button  class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <!-- <button (click)="OnSeachItem()" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- ส่วนตาราง -->
+          <div class="table-responsive" >
+            <table class="table">
+               <!-- -------Head----- -->
+              <thead>
+                <tr>
+                  <th>ชื่อ</th>
+                  <th>นามสกุล</th>
+                  <th>เบอรโทร</th>
+                  <th>อีเมล์</th>
+                  <th>สถานี่ทำงาน</th>
+                  <th>ที่อยู่</th>
+                  <th>วันที่</th>
+                  <th></th>
+                </tr>
+              </thead>
+  
+  
+  
+              
+               <!-- -------Body----- -->
+              <tbody>
+                <tr *ngFor="let item of items.items">
+                  <td>{{item.firstname}}</td>
+                  <td>{{item.lastname}}</td>
+                  <td>{{item.phone}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.supname}}</td>
+                  <td>{{item.address}}</td>
+                  <td>{{item.updated | date :'dd-MM-yyyy'}}</td>
+                  <td   class="text-right">
+                  <ng-template [ngIf]="UserLogin.role != Role.Member">
+                      <i   class="fa fa-edit cur"></i>
+                      <!-- <i  (click)='onUpdateMember(item)' class="fa fa-edit cur"></i> -->
+                      <span> | </span>
+                      <i   class="fa fa-trash cur"></i>
+                      <!-- <i  (click)='OnDeleteMember(item)' class="fa fa-trash cur"></i> -->
+                  </ng-template>
+                          </td>
+  
+                </tr>
+              </tbody>
+  
+               <!-- -------Foot----- -->
+              
+              <tfoot>
+                <tr>
+                  <th colspan="7">
+                    จำนวนลูกค้าทั้งหมด 
+                    <!-- {{items.totalItems}}  -->
+                    คน
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+            <div class="pull-right">
+              <!-- <pagination [(ngModel)]="startPage" [itemsPerPage]="limitPage"  (pageChanged)="onpageChanged($event)" 
+              [rotate]="false" [maxSize]="10" nextText="ถัดไป" previousText="ก่อนหน้า"  [totalItems]="items.totalItems"></pagination> -->
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </app-auth-content>

@@ -11,6 +11,8 @@ import { WidgetsComponent } from './components/widgets/widgets.component';
 import { MembersComponent } from './components/members/members.component';
 import { MemberCreateComponent } from './components/member-create/member-create.component';
 import { ChangePasswordComponent } from './components/profile/change-password/change-password.component';
+import { CustomerComponent } from './components/Customer/customer/customer.component';
+import { CustomerCreateComponent } from './components/Customer/customer-create/customer-create.component';
 
 
 
@@ -30,6 +32,8 @@ import { ChangePasswordComponent } from './components/profile/change-password/ch
     MembersComponent,
     MemberCreateComponent,
     ChangePasswordComponent,
+    CustomerComponent,
+    CustomerCreateComponent,
   
   ]
   

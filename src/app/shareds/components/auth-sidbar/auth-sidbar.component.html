@@ -36,41 +36,28 @@
         </ul>
       </li>
 
-      
-        <li class="treeview"  routerLinkActive="is-expanded">
-          <a class="app-menu__item" href="#" data-toggle="treeview" >
-            <i class="app-menu__icon fa fa-laptop">         
-            </i>
-            <span class="app-menu__label">ส่วนของหน้า UI</span>
-            <i class="treeview-indicator fa fa-angle-right"></i></a>
+      <li *ngIf="UserLogin.role != Role.Member" class="treeview" routerLinkActive="is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview">
+        <i class="app-menu__icon fa fa-laptop">
+        </i><span class="app-menu__label">ส่วนของลูกค้า</span>
+        <i class="treeview-indicator fa fa-angle-right"></i></a>
+        <ul class="treeview-menu">
+          <li>
+            <a class="treeview-item" [routerLink]="['/',AppURL.Authen,AuthURL.Customer] " routerLinkActive="active" > <i class="icon fa fa-circle-o"> </i> รายการลูกค้า</a>
+          </li>
+          <li  *ngIf="UserLogin.role == Role.Admin" >
+            <a class="treeview-item"  [routerLink]="['/',AppURL.Authen,AuthURL.Customercreate]" routerLinkActive="active"> <i class="icon fa fa-circle-o"> </i> เพิ่มลูกค้าใหม่</a>
+          </li>
+        </ul>
+      </li>
 
-            <ul class="treeview-menu">            
-            <li>
-                <a class="treeview-item" [routerLink]="['/',AppURL.Authen,AuthURL.Elements]" routerLinkActive="active" > <i class="icon fa fa-circle-o"> </i> Bootstrap Elements</a>
-            </li>
 
-            <li>
-              <a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a>
-            </li>
-
-            <li>
-              <a class="treeview-item" [routerLink]="['/',AppURL.Authen,AuthURL.Cards]" routerLinkActive="active" ><i class="icon fa fa-circle-o"></i> Cards</a>
-            </li>
-
-            <li>
-              <a class="treeview-item" [routerLink]="['/',AppURL.Authen,AuthURL.Widgets]" routerLinkActive="active" ><i class="icon fa fa-circle-o"></i> Widgets</a>
-            </li>
-            </ul>
-        </li>
-      
         <li>
             <a class="app-menu__item" href="charts.html">
-            <i class="app-menu__icon fa fa-pie-chart">              
+            <i class="app-menu__icon fa fa-pie-chart">
             </i>
                 <span class="app-menu__label">ส่วนของกราฟ</span>
             </a>
         </li>
-        
       <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">ส่วนของฟอร์ม</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>

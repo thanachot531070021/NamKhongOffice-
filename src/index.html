@@ -11,11 +11,28 @@
    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
    <!-- Font-icon css-->
    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
 <body>
 
   
   <app-root></app-root>
+
+
+  <!-- <div class="col-sm-6">
+    <div class="form-group">
+      <label for="">จังหวัด</label>
+      <select   class="form-control"  id="input_province" >
+        <option  value="">เลือกจังหวัด</option>
+
+      </select>
+    </div>
+  </div> -->
+
+
+
   <!-- Essential javascripts for application to work-->
   <script src="assets/js/jquery-3.2.1.min.js"></script>
   <script src="assets/js/popper.min.js"></script>
@@ -33,6 +50,150 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Page specific javascripts-->
   <script  src="assets/js/plugins/bootstrap-notify.min.js"></script>
-  
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- sweetalert2 JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+    GetProvinces();
+  });
+
+  $("#idCus1").click(function(){
+        $( "#CusName" ).prop( "disabled",true  );
+        $( "#idCus2" ).prop( "checked",false  );
+        $("#CusName").removeClass("important");
+      }
+  );
+
+  $("#idCus2").click(function(){
+        $( "#CusName" ).prop( "disabled",false  );
+        $( "#idCus1" ).prop( "checked",false  );
+      }
+  );
+
+
+  $(document).keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+      $("#submit").click();
+    }
+  });
+
+  $("#submit").click(function(){
+    if($("#idCus2").is(':checked')){
+
+      if($("#CusName").val().length==0){
+
+        if($("#CusName").val().length==0){
+          $("#CusName").addClass("important");
+          // console.log("addClass");
+
+        }
+        Swal.fire({
+          title: 'ผิดพลาด!',
+          text: 'กรุณาระบุชื่อ บริษัท.',
+          icon: 'warning',
+          confirmButtonText: 'Cool'
+          })
+        // console.log("ture");
+
+      }else{
+          $("#CusName").removeClass("important");
+        }
+
+    }
+    // else{
+    // 	console.log("false");
+    // }
+    });
+
+  $("#CusName").change(function(){
+    if($("#CusName").val().length==0){
+
+        if($("#CusName").val().length==0){
+          $("#CusName").addClass("important");
+          console.log("addClass");
+
+        }
+
+      }else{
+          $("#CusName").removeClass("important");
+        }
+  });
+
+  $( "#input_province" ).change(function() {
+    var pros =$( "#input_province option:selected" ).text();
+        if(pros=="กรุณาเลือกข้อมูล"){
+          $( "#input_amphures" ).prop( "disabled",  true);
+          console.log("NO");
+
+        }else{
+          $( "#input_amphures" ).prop( "disabled",false  );
+          GetAmphures();
+          console.log("Yes");
+
+
+        }
+  });
+
+  $( "#input_amphures" ).change(function() {
+    var pros =$( "#input_province option:selected" ).text();
+        if(pros=="กรุณาเลือกข้อมูล"){
+          $( "#input_districts" ).prop( "disabled",  true);
+        }else{
+          $( "#input_districts" ).prop( "disabled",false  );
+        }
+      GetDistricts();
+  });
+
+  function GetProvinces(){
+    $.ajax({
+      type: 'get', url: "https://localhost:44320/api/Address/GetProvinces?searchText=",
+      data: {Searchtext : ''},
+      success: function (resault){
+        console.log(resault);
+
+        $("#input_province").empty();
+        $("#input_province").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+        for(var i = 0 ;i <resault.items.length ;i++ ){
+          $("#input_province").append('<option value="'+resault.items[i].PROVINCE_CODE+'">'+ resault.items[i].PROVINCE_NAME+'</option>');
+        }
+      }
+    })}
+
+    function GetAmphures(){
+    $.ajax({
+      type: 'get', url: "https://jsonplaceholder.typicode.com/todos",
+      data: {Searchtext : ''}, 
+      success: function (resault){
+        // console.log(resault);
+        $("#input_amphures").empty(); 
+        $("#input_amphures").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+        for(var i = 0 ;i <resault.length ;i++ ){
+          $("#input_amphures").append('  <option value="'+resault[i].id+'">'+ resault[i].title+'</option>'); 
+        }
+      }
+    })}
+
+    function GetDistricts(){
+    $.ajax({
+      type: 'get', url: "https://jsonplaceholder.typicode.com/comments", 
+      data: {Searchtext : ''}, 
+      success: function (resault){
+        // console.log(resault);
+        $("#input_districts").empty(); 
+        $("#input_districts").append('  <option value="">กรุณาเลือกข้อมูล</option>'); 
+        for(var i = 0 ;i <resault.length ;i++ ){
+          $("#input_districts").append('  <option value="'+resault[i].id+'">'+ resault[i].name+'</option>'); 
+        }
+      }
+    })}
+
+  </script>

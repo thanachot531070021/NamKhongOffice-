@@ -36,7 +36,7 @@ defineLocale('th', thLocale);
   declarations: [
       AuthNavbarComponent,
       AuthSidbarComponent,
-      AuthContentComponent
+      AuthContentComponent,
       
     ],
     exports:[
